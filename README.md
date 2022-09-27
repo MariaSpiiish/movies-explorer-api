@@ -9,4 +9,6 @@
 
 Node.js, Express.js, MongoDB, Joi, celebrate, Git  
 
-# Ссылка на проект:  
+# Ссылка на проект: 
+
+http://api.movies-explorer.mlaps.nomorepartiesxyz.ru/
