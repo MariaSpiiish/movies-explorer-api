@@ -8,6 +8,7 @@ const { errors } = require('celebrate');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
+const limiter = require('./utils/limiter');
 const userRouter = require('./routes/users');
 const moviesRouter = require('./routes/movies');
 const authRouter = require('./routes/index');
@@ -28,6 +29,8 @@ mongoose.connect(NODE_ENV === 'production' ? DATA_BASE : 'mongodb://localhost:27
 app.use(express.json());
 
 app.use(requestLogger);
+
+app.use(limiter);
 
 app.use('/', authRouter);
 app.use(auth);

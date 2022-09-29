@@ -37,8 +37,8 @@ const updateUser = (req, res, next) => {
     })
     .then((user) => res.status(ok).send(user))
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        return next(new BadRequest('Переданы некорректные данные при обновлении данных пользователя'));
+      if (err.code === 11000) {
+        return next(new DuplicateError('Нельзя обновить данные другого пользователя'));
       }
       return next(err);
     });
@@ -78,7 +78,7 @@ const login = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
       res.status(ok).send({ token });
     })
-    .catch(() => next(new UnauthorizedError('Необходима авторизация')));
+    .catch(() => next(new UnauthorizedError()));
 };
 
 module.exports = {
