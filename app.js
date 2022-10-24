@@ -4,6 +4,7 @@ const { NODE_ENV, DATA_BASE } = process.env;
 
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const { errors } = require('celebrate');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -18,13 +19,28 @@ const errorHandler = require('./middlewares/errorHandler');
 const NotFound = require('./custom errors/NotFound');
 
 // Слушаем 3000 порт
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 
 const app = express();
 
 mongoose.connect(NODE_ENV === 'production' ? DATA_BASE : 'mongodb://localhost:27017/moviesdb', {
   useNewUrlParser: true,
 });
+
+const options = {
+  origin: [
+    'http://localhost:3000',
+    'https://movies-explorer.mlaps.nomoredomains.icu',
+    'http://movies-explorer.mlaps.nomoredomains.icu',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
+
+app.use('*', cors(options));
 
 app.use(express.json());
 
