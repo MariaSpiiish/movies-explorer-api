@@ -6,36 +6,15 @@ const {
 const BadRequest = require('../custom errors/BadRequest');
 const Forbidden = require('../custom errors/Forbidden');
 
-const getMovies = (req, res, next) => Movie.find({})
-  .then((movies) => res.status(ok).send(movies))
-  .catch(next);
+function getMovies(req, res, next) {
+  Movie.find({ owner: req.user._id })
+    .then((movies) => res.send(movies))
+    .catch(next);
+}
 
 const createMovie = (req, res, next) => {
-  const {
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailerLink,
-    thumbnail,
-    movieId,
-    nameRU,
-    nameEN,
-  } = req.body;
   Movie.create({
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailerLink,
-    thumbnail,
-    movieId,
-    nameRU,
-    nameEN,
+    ...req.body,
     owner: req.user._id,
   })
     .then((movie) => res.status(created).send(movie))
