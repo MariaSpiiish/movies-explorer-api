@@ -20,14 +20,6 @@
 * pm2
 * Nginx
 
-## Api
-
-[Ссылка на бэкенд на ВМ YandexCloud](http://api.movies-explorer.mlaps.nomorepartiesxyz.ru/)
-
-## Demo
-
-[Ссылка на проект](http://movies-explorer.mlaps.nomoredomains.icu/)
-
 ## Запуск проекта
 
 При первом запуске проекта
