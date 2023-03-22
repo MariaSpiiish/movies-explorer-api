@@ -20,9 +20,6 @@
 * pm2
 * Nginx
 
-## Demo
-[Ссылка на приложение](http://movies-explorer.mlaps.nomoredomains.icu/)
-
 ## Запуск проекта
 
 При первом запуске проекта
